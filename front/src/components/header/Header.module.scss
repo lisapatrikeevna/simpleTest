@@ -1,0 +1,124 @@
+.root {
+  .nav {
+    list-style: none;
+    padding: 0 !important;
+    margin: 0;
+    width: 100% !important;
+    max-width: 100% !important;
+    background: #101c2c;
+    height: 53px;
+
+    .logo {
+      width: 50px;
+      margin-top: 5px;
+    }
+
+    .logo img {
+      width: 100%;
+    }
+
+    & > li {
+      margin: 0 10px;
+
+      .switch {
+        color: red;
+      }
+    }
+
+    a {
+      //color: var(--gray-color);
+      color: var(--secondary-color);
+      text-decoration: none;
+      padding: 7px 15px;
+      border-bottom: 3px solid transparent;
+      text-shadow: 1px 1px 1px #4d6a8e;
+      letter-spacing: 0.04em;
+
+      &:visited {
+        color: var(--secondary-color);
+      }
+
+      &:hover {
+        color: var(--dark-gray-color)
+      }
+
+      &.active {
+        //background: var(--secondary-color);
+        //color: var(--text-color);
+        //border-bottom: 3px solid #000000;
+        border-bottom: 3px solid var(--secondary-color);
+        padding-bottom: 14px;
+      }
+
+    }
+  }
+
+  .navList {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+  }
+
+  .selectBody {
+    background-color: var(--dark-bg-color) !important;
+    margin-top: 4px !important;
+    //position: absolute;
+    //insert:0 auto auto 0;
+    //display: block!important;
+    //width: 73px;
+    border-radius: 0 0 0 15px !important;
+
+    > li {
+      background-color: transparent !important;
+      color: var(--secondary-color) !important;
+
+      &:active {
+        background-color: red !important; // Цвет фона при активном состоянии
+      }
+
+      // Стили для выделенного элемента
+      &.active {
+        background-color: var(--dark-bg-color) !important; // Цвет фона для активного элемента
+        color: var(--secondary-color) !important; // Цвет текста для активного элемента
+      }
+
+
+      &:hover {
+        background-color: var(--secondary-color) !important;
+        color: var(--dark-bg-color) !important;
+      }
+    }
+
+    &.Mui-selected {
+      background-color: var(--dark-bg-color) !important; // Цвет фона для выбранного элемента
+      color: var(--secondary-color) !important; // Цвет текста для выбранного элемента
+    }
+
+    &:active {
+      background-color: var(--primary-color) !important; // Цвет фона при активном состоянии
+    }
+
+  }
+
+  .itemLi {
+    display: flex;
+    gap: 1px;
+    width: 100%;
+  }
+
+  .avatar {
+    cursor: pointer;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
