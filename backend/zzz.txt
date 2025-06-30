@@ -1,0 +1,32 @@
+psql -U natalybondarenko -d postgres;
+ CREATE DATABASE easeTest;
+
+pip install python-decouple
+pip install django-environ
+pip install psycopg2-binary
+pip install djangorestframework-simplejwt
+pip install djangorestframework
+pip install django-filter
+
+cd apps
+python ../manage.py startapp user
+python ../manage.py startapp customer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
