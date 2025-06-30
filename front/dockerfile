@@ -1,0 +1,56 @@
+FROM node:18.16 AS build
+WORKDIR /front
+
+# Copy package files first for better caching
+COPY package.json pnpm-lock.yaml ./
+
+# Install pnpm and dependencies
+RUN npm install -g pnpm && pnpm install
+
+# Copy all source files
+COPY . .
+
+# Create Docker-specific TypeScript configs
+RUN echo '{ \
+  "compilerOptions": { \
+    "target": "ES2020", \
+    "useDefineForClassFields": true, \
+    "lib": ["ES2020", "DOM", "DOM.Iterable"], \
+    "module": "ESNext", \
+    "skipLibCheck": true, \
+    "moduleResolution": "node", \
+    "allowImportingTsExtensions": false, \
+    "resolveJsonModule": true, \
+    "isolatedModules": true, \
+    "jsx": "react-jsx", \
+    "outDir": "./dist", \
+    "noEmit": true, \
+    "strict": true, \
+    "noUnusedLocals": true, \
+    "noUnusedParameters": true, \
+    "noFallthroughCasesInSwitch": true, \
+    "types": ["node"], \
+    "paths": { "@/*": ["./src/*"] }, \
+    "typeRoots": ["./node_modules/@types", "./src/@types"] \
+  }, \
+  "include": ["src"] \
+}' > tsconfig.docker.json
+
+# Build the application
+RUN pnpm vite build
+
+# Production stage
+# FROM nginx:stable-alpine
+FROM node:18.16 AS production
+WORKDIR /front
+
+COPY --from=build /front/dist ./dist
+
+# Install serve (a simple static file server)
+RUN npm install -g serve
+
+# Expose port 3000
+EXPOSE 80
+
+# Start the app using serve
+CMD ["serve", "-s", "dist", "-l", "80"]

@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./backend
+    container_name: backend
+    restart: unless-stopped
+    ports:
+     - "1213:1213"
+    volumes:
+      - ./media:/usr/src/app/media
+    networks:
+      - directus_directus
+    command: >
+      bash -c "
+        python manage.py migrate &&
+        python manage.py collectstatic --noinput &&
+        gunicorn --bind 0.0.0.0:1212 backend.wsgi:application 
+      "
+
+  front:
+    build: ./front
+    container_name: front
+    restart: unless-stopped
+    depends_on:
+      - backend
+    networks:
+      - directus_directus
+
+volumes:
+  django_media_volume:
+
+networks:
+  directus_directus:
+    external: true
